@@ -2,6 +2,8 @@
 let playerScore = 0;
 let computerScore = 0;
 
+const resultText = document.getElementById('result');
+
 // Getting the computer's random answer
 function getComputerChoice() {
     const choice = Math.floor(Math.random() * 100) + 1;
@@ -59,9 +61,8 @@ function game() {
     // final output (deciding the winner)
     console.log(`Score: You(${playerScore}) : Computer(${computerScore})`);
     if (playerScore > computerScore) {
-        console.log('THE WINNER IS : YOU');
+        resultText.innerText = 'THE WINNER IS : YOU';
     } else {
-        console.log('THE WINNER IS : COMPUTER');
+        resultText.innerText = 'THE WINNER IS : COMPUTER';
     }
 }
-
