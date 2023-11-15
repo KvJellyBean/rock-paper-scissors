@@ -1,8 +1,46 @@
 // Declare starting score
 let playerScore = 0;
 let computerScore = 0;
+let round = 0;
 
-const resultText = document.getElementById('result');
+let resultText = document.getElementById('result');
+let scoreText = document.getElementById('Score');
+const buttons = document.querySelectorAll('button');
+let computerChoiceText = document.querySelector('h2#computer-choice');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', (e) => {
+        // Reset
+        if (round == 6) {
+            resultText.innerText = '';
+            round = 0;
+        }
+
+        round++;
+        let computerChoice = getComputerChoice();
+
+        playRound(e.target.id, computerChoice);
+
+        computerChoiceText.innerText = `${computerChoice}`;
+        scoreText.innerText = `Score: You(${playerScore}) : Computer(${computerScore})`;
+
+        if (round == 5) {
+            if (playerScore > computerScore) {
+                resultText.innerText = 'The Winner Is : YOU';
+                resultText.style.color = 'green';
+            } else if (playerScore < computerScore) {
+                resultText.innerText = 'The Winner Is : COMPUTER';
+                resultText.style.color = 'red';
+            } else {
+                resultText.innerText = 'Match is DRAW';
+                resultText.style.color = 'blue';
+            }
+            round = 6;
+            playerScore = 0;
+            computerScore = 0;
+        }
+    })
+})
 
 // Getting the computer's random answer
 function getComputerChoice() {
@@ -41,28 +79,5 @@ function playRound(playerSelection, computerSelection) {
         }
     } else {
         console.log('Only Input Rock/Paper/Scissors');
-    }
-}
-
-// function to start the game
-function game() {
-    // reset score
-    playerScore = 0;
-    computerScore = 0;
-
-    // loop to play 5 rounds
-    for (let i = 0; i < 5; i++) {
-        const computerSelection = getComputerChoice();
-        let playerChoice = prompt('Rock / Paper / Scissors');
-
-        console.log(playRound(playerChoice.toLowerCase(), computerSelection));
-    }
-
-    // final output (deciding the winner)
-    console.log(`Score: You(${playerScore}) : Computer(${computerScore})`);
-    if (playerScore > computerScore) {
-        resultText.innerText = 'THE WINNER IS : YOU';
-    } else {
-        resultText.innerText = 'THE WINNER IS : COMPUTER';
     }
 }
